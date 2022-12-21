@@ -1,3 +1,4 @@
+# nhl_goal_alert
 # Environment variables definition
 TZ=America/Chicago
 # Team ID from https://github.com/JayBlackedOut/hass-nhlapi/blob/master/teams.md
