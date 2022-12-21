@@ -14,18 +14,18 @@ Culprits could be many, including
 1. congested home network
 1. misconfigured home network
 1. non-responsive NHL API endpoint
-1. too-long or non-existent timeout in the call to requests.get() (or equivalent)
-1. limited or non-existent error-handling in the call to requests.get() (or equivalent), masking the root cause.
+1. too-long or non-existent [timeout](https://requests.readthedocs.io/en/latest/user/quickstart/#timeouts) in the call to `requests.get()` (or equivalent)
+1. limited or non-existent error-handling in the call to `requests.get()` (or equivalent), masking the root cause.
 
 ## Method
 Trying to eliminate one or more of these, I wrote this simple script that runs in a docker container on my same home network, but on a different computer, (virtual or real).
-I've added a timeout to requests.get(), and rudimentary exception handling, to log and continue if an exception is thrown.
+I've added a timeout to `requests.get()`, and rudimentary exception handling, to log and continue if an exception is thrown.
 
 ## Observations
 In the first few runs of this script in a VM guest on the same host as my Home Assistant VM, it never stops updating.
 This script is, so far, about as timely as my third, independent "observer", [theScore](https://get.thescore.com/) app on my iPhone.
 
 ## To do
-1. Figure out how to detect & log when requests.get() times out.
+1. Figure out how to detect & log when `requests.get()` [times out](https://requests.readthedocs.io/en/latest/user/quickstart/#timeouts).
 1. Figure out how to log the text of the exception that happened when an exception is thrown.
 1. Nice-to-have: Make the API call at the top instead of the bottom, to handle when an overtime game ends, going "FINAL", before the goal score increment was detected.
