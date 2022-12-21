@@ -26,6 +26,6 @@ In the first few runs of this script in a VM guest on the same host as my Home A
 This script is, so far, about as timely as my third, independent "observer", [theScore](https://get.thescore.com/) app on my iPhone.
 
 ## To do
-1. Figure out how to detect & log when `requests.get()` [times out](https://requests.readthedocs.io/en/latest/user/quickstart/#timeouts).
-1. Figure out how to log the text of the exception that happened when an exception is thrown.
-1. Nice-to-have: Make the API call at the top instead of the bottom, to handle when an overtime game ends, going "FINAL", before the goal score increment was detected.
+- [ ] Figure out how to detect & log when `requests.get()` [times out](https://requests.readthedocs.io/en/latest/user/quickstart/#timeouts).
+- [ ] Figure out how to log the text of the exception that happened when an exception is thrown.
+- [ ] Nice-to-have: Make the API call at the top instead of the bottom, to handle when an overtime game ends, going "FINAL", before the goal score increment was detected.

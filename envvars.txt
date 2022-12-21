@@ -1,5 +1,6 @@
 # Environment variables definition
 TZ=America/Chicago
+# Team ID from https://github.com/JayBlackedOut/hass-nhlapi/blob/master/teams.md
 # Blues = 19, Canes = 12, Stars = 25
 TEAM_ID=19
 # Homeassistant host name or IP address:
