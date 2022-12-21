@@ -22,7 +22,7 @@ Trying to eliminate one or more of these, I wrote this simple script that runs i
 I've added a timeout to requests.get(), and rudimentary exception handling, to log and continue if an exception is thrown.
 
 ## Observations
-In the first few runs of this script in a VM guest on the same host as my Home Assistant VM, it never stops updating for many, many minutes.
+In the first few runs of this script in a VM guest on the same host as my Home Assistant VM, it never stops updating.
 This script is, so far, almost as timely as my third, independent, "observer", "theScore" app on my iPhone.
 
 ## To do
