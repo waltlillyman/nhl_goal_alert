@@ -10,9 +10,9 @@ The symptom I'm troubleshooting is that the HA sensor stops updating during a ga
 If I restart HA, the sensor resumes updating. Until it stops again. My Home Assistant has no other connectivity or performance symptoms.
 
 Culprits could be many, including 
-1. slow DNS server
-1. congested home network
-1. misconfigured home network
+1. slow DNS server responses
+1. congested home network or ISP
+1. misconfigured home network, VM host or VM guest
 1. non-responsive NHL API endpoint
 1. too-long or non-existent [timeout](https://requests.readthedocs.io/en/latest/user/quickstart/#timeouts) in the call to `requests.get()` (or equivalent)
 1. limited or non-existent error-handling in the call to `requests.get()` (or equivalent), masking the root cause.
