@@ -23,7 +23,7 @@ I've added a timeout to requests.get(), and rudimentary exception handling, to l
 
 ## Observations
 In the first few runs of this script in a VM guest on the same host as my Home Assistant VM, it never stops updating.
-This script is, so far, almost as timely as my third, independent, "observer", "theScore" app on my iPhone.
+This script is, so far, about as timely as my third, independent "observer", [theScore](https://get.thescore.com/) app on my iPhone.
 
 ## To do
 1. Figure out how to detect & log when requests.get() times out.
