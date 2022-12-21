@@ -1,0 +1,53 @@
+12/8/22: Running via docker container:
+
+Starting the container:
+root@swagpi:/mnt/python# ./run.sh && tail -f app/nhl_goal_alert.log 
+
+Stopping the container:
+root@swagpi:/mnt/python# docker stop python && echo >> app/nhl_goal_alert.log
+
+===========
+Get Blues schedule for today:
+https://statsapi.web.nhl.com/api/v1/schedule?teamId=19
+On a game day, totalItems=1, totalGames=1
+ The dates array will have an item: dates[0].games[0].gamePk = 2018021173
+  dates[0].games[0].gameDate = 2019-03-26T00:00:00Z
+    subtract 5 hours for CDT = 7PM CT on 3/25/19.
+
+So starting at that time, poll frequently, till game has ended, for goal scored, or team 19 score increments (not decrements)
+
+Per https://www.kevinsidwar.com/iot/2017/7/1/the-undocumented-nhl-stats-api
+use:
+game/:id/feed/live
+Also per: https://gitlab.com/dword4/nhlapi/tree/master
+
+Get today's Blues schedule, if any game:
+https://statsapi.web.nhl.com/api/v1/schedule?teamId=19
+From the game id fetched, get the game-in-progress's info:
+https://statsapi.web.nhl.com/api/v1/game/2018021173/feed/live
+
+Example of parsing:  https://statsapi.web.nhl.com/api/v1/game/2018021173/feed/live
+
+Per:  https://github.com/dword4/nhlapi
+https://statsapi.web.nhl.com/api/v1/teams/19?expand=team.schedule.next
+teams[0].nextGameSchedule.dates[0].games[0].gamedate=2019-03-26T00:00:00Z  (which is 3/25 @ 7PM CDT)
+Is my team the away team?
+teams[0].nextGameSchedule.dates[0].games[0].teams.away.team.id=19 ?  
+  No, then they're the home team (needed to get score in-game.)
+This also gives me a link to the live feed API with its game ID already embedded, don't have to build it.
+teams[0].nextGameSchedule.dates[0].games[0].link=/api/v1/game/2018021173/feed/live
+With BASE_URL=https://statsapi.web.nhl.com, glue the link to this to get:
+https://statsapi.web.nhl.com/api/v1/game/2018021173/feed/live
+Save the current goals amount:
+ oldgoals=liveData.linescore.teams.{home_or_away}.goals
+While the game is not over:
+ while gameData.status.detailedState<>'Final'
+  Get the goals amount:
+  https://statsapi.web.nhl.com/api/v1/game/2018021173/feed/live
+  newgoals=liveData.linescore.teams.{home_or_away}.goals
+  If newgoals>oldgoals then trigger celebration.
+  
+Intermission:
+linescore.intermissionInfo.inIntermission=true or false
+linescore.intermissionInfo.TimeRemaining
+

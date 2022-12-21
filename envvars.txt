@@ -1,0 +1,11 @@
+# Environment variables definition
+TZ=America/Chicago
+# Blues = 19, Canes = 12, Stars = 25
+TEAM_ID=19
+# Homeassistant host name or IP address:
+HA_HOST=homeassistant
+# Webhook which will press HA helper, input_button.nhl_goal_button:
+WEBHOOK_ID=press_nhl_goal_button
+# LOG_LEVEL can be DEBUG, INFO, WARNING, ERROR, CRITICAL.
+#   DEBUG will display DEBUG and all "higher"; INFO will display INFO and all higher, etc.
+LOG_LEVEL=INFO
