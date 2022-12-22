@@ -55,19 +55,19 @@ def main():
     try:
         response = requests.get(score_url, timeout=7)
     except:
-        logging.error('First call to the API threw an exception, exiting.')
+        logging.error('First call to the API threw an exception.  Exiting.')
         raise SystemExit(0)
 
     # Update data only for a valid response:
     if response.status_code == 200:
         data = response.json()
     else:
-        logging.error('First call to the API returned non-OK status, exiting.')
+        logging.error('First call to the API returned non-OK status.  Exiting.')
         raise SystemExit(0)
 
     # Verify game info is available, else exit:
     if len(data['dates']) == 0:
-        logging.info('Game info is not yet available from the NHL API.')
+        logging.info('Game info is not yet available from the NHL API.  Exiting.')
         raise SystemExit(0)
 
     # Set home or away value for this game:
