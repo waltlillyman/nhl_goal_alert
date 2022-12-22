@@ -1,8 +1,18 @@
 # nhl_goal_alert
 
 ## Description
-Stand-alone python script to poll the unofficial NHL API for changes to the score of a game in progress.
-When [my team](https://www.nhl.com/blues/) scores a goal, invoke a webhook in my [Home Assistant](https://www.home-assistant.io/) to do something, (like, announce the goal on a voice assistant, flash a light, and/or notify my phone.)
+Stand-alone python script to poll the unofficial NHL API for changes in the score of a game in progress.
+When [my team](https://www.nhl.com/blues/) scores a goal, invoke a webhook trigger in my [Home Assistant](https://www.home-assistant.io/) (HA) instance to do something, (like, announce the goal on a voice assistant, flash a light, and/or notify my phone.)
+
+## Usage
+1. Edit `envvars.txt`:  
+    a.  Set your [timezone (TZ)](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones) for the log file output.  
+    b. Set the [team ID](https://github.com/JayBlackedOut/hass-nhlapi/blob/master/teams.md) of the team for which you care to monitor goals scored.  
+    c. Set the name or IP address of your [Home Assistant](https://www.home-assistant.io/) instance.  
+    d. Set the ID of the HA [webhook trigger](https://www.home-assistant.io/docs/automation/trigger/#webhook-trigger) the script will invoke when your team scores a goal.  
+    e. Set the [log level](https://docs.python.org/3/library/logging.html#logging-levels) of messages to be written to the script's log file.
+
+
 
 ## Why
 I wrote this to help me troubleshoot a problem with the excellent [NHL API integration for HACS on Home Assistant](https://github.com/JayBlackedOut/hass-nhlapi), by [@JayBlackedOut](https://github.com/JayBlackedOut).

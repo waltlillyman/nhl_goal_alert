@@ -1,6 +1,6 @@
 # nhl_goal_alert
-# Environment variables definition
-# 12/21/22
+# Environment variables definition, 12/21/22
+# Time zone from https://en.wikipedia.org/wiki/List_of_tz_database_time_zones
 TZ=America/Chicago
 # Team ID from https://github.com/JayBlackedOut/hass-nhlapi/blob/master/teams.md
 # Blues = 19, Canes = 12, Stars = 25
