@@ -11,6 +11,13 @@ When [my team](https://www.nhl.com/blues/) scores a goal, invoke a webhook trigg
     c. Set the name or IP address of your [Home Assistant](https://www.home-assistant.io/) instance.  
     d. Set the ID of the HA [webhook trigger](https://www.home-assistant.io/docs/automation/trigger/#webhook-trigger) the script will invoke when your team scores a goal.  
     e. Set the [log level](https://docs.python.org/3/library/logging.html#logging-levels) of messages to be written to the script's log file.
+2. Edit `run.sh`:  
+    a. Replace the first part of the docker bind-volume argument with the path to where you're running this:  
+        `-v /path/to/your/nhl_goal_alert/app:/usr/src/app`
+3. Make the two shell files executable:  
+    `# chmod a+x *.sh`
+4. Execute `build.sh` to build the docker file image from `python:3.10-slim-bullseye`
+5. Execute `run.sh` to run an instance of this docker image in a container that will terminate when it's complete. It will write its log file to the same directory containing the python script.
 
 
 

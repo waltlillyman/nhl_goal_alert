@@ -1,10 +1,10 @@
 12/8/22: Running via docker container:
 
 Starting the container:
-root@swagpi:/mnt/python# ./run.sh && tail -f app/nhl_goal_alert.log 
+root:/mnt/python# ./run.sh && tail -f app/nhl_goal_alert.log 
 
 Stopping the container:
-root@swagpi:/mnt/python# docker stop python && echo >> app/nhl_goal_alert.log
+root:/mnt/python# docker stop python && echo >> app/nhl_goal_alert.log
 
 ===========
 Get Blues schedule for today:
