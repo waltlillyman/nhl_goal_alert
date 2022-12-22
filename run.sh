@@ -7,4 +7,4 @@ docker stop nhl_goal_alert > /dev/null 2>&1
 docker container rm -f nhl_goal_alert > /dev/null 2>&1
 echo Starting container...
 # Run it as a detached daemon, it will terminate when it terminates. Don't auto-restart it:
-docker run -d --name=nhl_goal_alert -v /home/walt/nhl_goal_alert:/usr/src/app --env-file ./envvars.txt nhl_goal_alert
+docker run -d --name=nhl_goal_alert -v /home/walt/nhl_goal_alert/app:/usr/src/app --env-file ./envvars.txt nhl_goal_alert
