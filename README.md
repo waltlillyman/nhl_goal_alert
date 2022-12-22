@@ -7,7 +7,7 @@ When [my team](https://www.nhl.com/blues/) scores a goal, invoke a webhook in my
 ## Why
 I wrote this to help me troubleshoot a problem with the excellent [NHL API integration for HACS on Home Assistant](https://github.com/JayBlackedOut/hass-nhlapi), by [@JayBlackedOut](https://github.com/JayBlackedOut).
 The symptom I'm troubleshooting is that the HA sensor stops updating during a game, sometimes for 20 minutes or longer.
-If I restart HA, the sensor resumes updating. Until it stops again. My Home Assistant has no other connectivity or performance symptoms.
+If I restart HA, the sensor resumes updating. Until it stops again. My Home Assistant instance has no other connectivity or performance symptoms.
 
 Culprits could be many, including 
 1. slow DNS server responses
