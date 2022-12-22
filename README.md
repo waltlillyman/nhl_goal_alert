@@ -1,7 +1,7 @@
 # nhl_goal_alert
 
 ## Description
-Python 3.10 script that polls the unofficial NHL API for changes in the score of a game in progress.
+Python 3.10 script that polls the unofficial NHL API for changes in the score of one team (your favorite team!) for a game in progress.
 When [my team](https://www.nhl.com/blues/) scores a goal, invoke a webhook trigger in my [Home Assistant](https://www.home-assistant.io/) (HA) instance to do something, (like, announce the goal on a voice assistant, flash a light, and/or notify my phone.)
 
 ## Usage
