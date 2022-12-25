@@ -1,10 +1,11 @@
 # syntax=docker/dockerfile:1
 # Walt Lillyman, 12/15/22
 
-# Build a container starting from python, adding the requests module. 
-# When instanciated, it will run the python script:
+# Build an image starting from python, adding the module(s) in requirements.txt. 
+# When instanciated, the container will run the python script and terminate when the script finishes:
 
-FROM python:3.10-slim-bullseye
-RUN pip install requests
+FROM python:slim
+COPY requirements.txt ./
+RUN pip install --no-cache-dir -r requirements.txt
 WORKDIR /usr/src/app
-CMD python nhl_goal_alert.py
+CMD [ "python",  "./nhl_goal_alert.py" ]
