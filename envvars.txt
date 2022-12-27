@@ -6,7 +6,7 @@ TZ=America/Chicago
 # Blues = 19, Canes = 12, Stars = 25
 TEAM_ID=19
 # Homeassistant host name or IP address and port:
-HA_HOST=192.168.1.42
+HA_HOST=homeassistant
 HA_PORT=8123
 # Webhook which will press HA helper, input_button.nhl_goal_button:
 WEBHOOK_ID=press_nhl_goal_button
