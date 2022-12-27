@@ -7,13 +7,13 @@ When [my team](https://www.nhl.com/blues/) scores a goal, invoke a webhook trigg
 ## Requirements
 - An interest in one or more NHL teams.
 - A working Home Assistant instance.
-- A linux box on which you can run docker and/or python 3.x, (this could likely also be run on Windows, but I haven't tried that, myself.)
+- A real or virtual Linux machine on which you can run docker and/or python 3.10, (this could likely also be run on Windows, but I haven't tried that, myself.)
 
 I run this python script inside a docker container. The Dockerfile, build and run scripts are included here.  
 I also set variables in the environment from a text file, `envvars.txt`, and invoke that file in the Docker run script.  
   
 You could skip all the docker stuff, and just invoke the python script, `nhl_goal_alert.py`, by itself.  
-You'll need to define those variables in your environment, manually, or edit the "Global default" variables in the python script.
+You'll need to define those variables in your environment, manually, or edit the default values of variables near the top of the python script.
 
 ## Usage
 1. Edit `envvars.txt`:  
