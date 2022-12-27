@@ -1,5 +1,5 @@
-# nhl_goal_alert.py, Walt Lillyman, 12/24/22
-# Detect when a goal is scored and tell HA via webhook.
+# nhl_goal_alert.py, Walt Lillyman, 12/26/22
+# Detect when a goal is scored and tell Home Assistant via webhook.
 
 import logging
 import socket    # Validate hosts are reachable
@@ -8,7 +8,7 @@ import time  # Sleep
 from os import getenv  # Environment variables
 from pathlib import Path  # Log file definition
 
-# Global defaults:
+# Set defaults:
 default_team_id = 19
 default_ha_host = 'homeassistant'
 default_ha_port = 8123
