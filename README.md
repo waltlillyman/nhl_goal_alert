@@ -13,7 +13,7 @@ I run this python script inside a docker container. The Dockerfile, build and ru
 I also set variables in the environment from a text file, `envvars.txt`, and invoke that file in the Docker run script.  
   
 You could skip all the docker stuff, and just invoke the python script, `nhl_goal_alert.py`, by itself.  
-You'll need to define those variables in your environment, manually, or edit the default values of variables near the top of the python script.
+If so, you'll need to define those variables in your environment, manually, or edit the default values near the top of the python script.
 
 ## Usage
 1. Edit `envvars.txt`:  
