@@ -2,14 +2,3 @@
 # Environment variables definition, 12/21/22
 # Time zone from https://en.wikipedia.org/wiki/List_of_tz_database_time_zones
 TZ=America/Chicago
-# Team ID from https://github.com/JayBlackedOut/hass-nhlapi/blob/master/teams.md
-# Blues = 19, Canes = 12, Stars = 25
-TEAM_ID=19
-# Homeassistant host name or IP address and port:
-HA_HOST=homeassistant
-HA_PORT=8123
-# Webhook which will press HA helper, input_button.nhl_goal_button:
-WEBHOOK_ID=press_nhl_goal_button
-# LOG_LEVEL can be DEBUG, INFO, WARNING, ERROR, CRITICAL.
-#   DEBUG will display DEBUG and all "higher" messages; INFO will display INFO and all higher, etc.
-LOG_LEVEL=INFO

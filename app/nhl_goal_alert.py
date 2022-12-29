@@ -1,56 +1,41 @@
-# nhl_goal_alert.py, Walt Lillyman, 12/26/22
+# nhl_goal_alert.py, Walt Lillyman, 12/29/22
 # Detect when a goal is scored and tell Home Assistant via webhook.
 
+import config  # Configuration values defined in file, config.py
 import logging
 import socket    # Validate hosts are reachable
 import requests  # Make API calls via HTTP(S)
 import time  # Sleep
-from os import getenv  # Environment variables
 from pathlib import Path  # Log file definition
 
-# Set defaults:
-default_team_id = 19
-default_ha_host = 'homeassistant'
-default_ha_port = 8123
-default_webhook_id = 'press_nhl_goal_button'
-default_log_level = 'DEBUG'
-
-
 def main():
-    # When an env var is not set at all, its value is "None". When it's set with no value, it's value is ''. 
-    # Malke sure to cast numeric environment variable values as int for later comparison. Set defaults if not defined:
-    team_id = int(getenv('TEAM_ID')) if (getenv('TEAM_ID') != None and getenv('TEAM_ID') != '') else default_team_id
-    ha_host = getenv('HA_HOST') if (getenv('HA_HOST') != None and getenv('HA_HOST') != '') else default_ha_host
-    ha_port = int(getenv('HA_PORT')) if (getenv('HA_PORT') != None and getenv('HA_PORT') != '') else default_ha_port
-    webhook_id = getenv('WEBHOOK_ID') if (getenv('WEBHOOK_ID') != None and getenv('WEBHOOK_ID') != '') else default_webhook_id
-    log_level = getenv('LOG_LEVEL') if (getenv('LOG_LEVEL') != None and getenv('LOG_LEVEL') != '') else default_log_level
     # Set numeric equivalent of log level:
-    match log_level:
+    match config.log_level:
         case 'DEBUG':
-            log_level = 10
+            config.log_level = 10
         case 'INFO':
-            log_level = 20
+            config.log_level = 20
         case 'WARNING':
-            log_level = 30
+            config.log_level = 30
         case 'ERROR':
-            log_level = 40
+            config.log_level = 40
         case 'CRITICAL':
-            log_level = 50
+            config.log_level = 50
         case _:
-            log_level = 10
+            config.log_level = 10
 
     # Log to this_script.log, appending log messages. DEBUG level will also reveal statements from the requests library:
-    logging.basicConfig(filename=Path(__file__).stem+'.log', filemode='a', format='%(asctime)s %(module)s %(levelname)s: %(message)s', datefmt='%m/%d/%Y %I:%M:%S %p', level=log_level)
+    logging.basicConfig(filename=Path(__file__).stem+'.log', filemode='a', format='%(asctime)s %(module)s %(levelname)s: %(message)s', datefmt='%m/%d/%Y %I:%M:%S %p', level=config.log_level)
 
-    logging.info(f"STARTING with team ID={team_id}, HA host:port={ha_host}:{ha_port}, webhook ID={webhook_id}")
+    logging.info(f"STARTING with team ID={config.team_id}, HA host:port={config.ha_host}:{config.ha_port}, webhook ID={config.webhook_id}")
 
     # NHL API:
     nhl_base = "https://statsapi.web.nhl.com/api/v1/"
-    score_endpoint = f"schedule?teamId={team_id}&hydrate=scoringplays"
+    score_endpoint = f"schedule?teamId={config.team_id}&hydrate=scoringplays"
     score_url = nhl_base + score_endpoint
 
     # Home Assistant webhook API:
-    goal_notify_url=f"http://{ha_host}:{ha_port}/api/webhook/{webhook_id}"
+    goal_notify_url=f"http://{config.ha_host}:{config.ha_port}/api/webhook/{config.webhook_id}"
 
     # Validate connectivity to NHL host:
     try:
@@ -62,7 +47,7 @@ def main():
 
     # Validate connectivity to Home Assistant host:
     try:
-        socket.create_connection((ha_host, ha_port), timeout=2)
+        socket.create_connection((config.ha_host, config.ha_port), timeout=2)
     except Exception as e:
         message = f"Can't connect to homeassistant at {goal_notify_url}: {e}"
         logging.error(message)
@@ -91,9 +76,9 @@ def main():
         raise SystemExit(message)
 
     # Set home or away value for this game:
-    home_or_away = 'home' if data['dates'][0]['games'][0]['teams']['home']['team']['id'] == team_id else 'away'
+    home_or_away = 'home' if data['dates'][0]['games'][0]['teams']['home']['team']['id'] == config.team_id else 'away'
 
-    # Prevent false-triggering when app starts during game in progress that has a non-zero score:
+    # Prevent false-triggering when app is started during a game in progress that has a non-zero score:
     first_time_thru = True
     while(1):
         # Get the current game state, "Scheduled", "Pre-Game", "In Progress", "Final"...
