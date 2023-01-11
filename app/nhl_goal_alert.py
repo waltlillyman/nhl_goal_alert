@@ -78,7 +78,7 @@ def main():
     # Set home or away value for this game:
     home_or_away = 'home' if data['dates'][0]['games'][0]['teams']['home']['team']['id'] == config.team_id else 'away'
 
-    # Prevent false-triggering when app is started during a game in progress that has a non-zero score:
+    # Prevent false-alerting when app is started during a game in progress that has a non-zero score:
     first_time_thru = True
     while(1):
         # Get the current game state, "Scheduled", "Pre-Game", "In Progress", "Final"...
@@ -98,6 +98,7 @@ def main():
                 new_score = data['dates'][0]['games'][0]['teams'][home_or_away]['score']
                 # Initialize score to current value the first time thru:
                 if first_time_thru:
+                    logging.info(f"{status}.") # Log "in-progress" the first time we see it.
                     score = new_score
                     first_time_thru = False
                 # If a goal was scored since last time checked:
@@ -110,8 +111,9 @@ def main():
                         logging.warning(message)
 
                     logging.info(f"Goal number {new_score}!")
-                    # Save the current score for comparison next time:
-                    score = new_score
+
+                # Save the current score for comparison next time. Do this every time thru to handle when a goal gets called back.
+                score = new_score
 
             case 'Game Over' | 'Final':
                 # If it was overtime, the status could have gone to "Game Over" in the same breath as our team scored the winning goal. Check for that goal and notify before exiting:
