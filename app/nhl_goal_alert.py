@@ -55,9 +55,10 @@ def main():
 
     # Call the NHL API, and exit if it failed:
     try:
-        response = requests.get(score_url, timeout=7)
-    except requests.exceptions.RequestException as e:
-        message = f'First call to the API threw an exception: {e}.  Exiting.'
+        response = requests.get(score_url, timeout=5)
+    # except requests.exceptions.RequestException as e:
+    except requests.Timeout as e:
+        message = f'First API call to NHL threw an exception: {e}.  Exiting.'
         logging.error(message)
         raise SystemExit(message)
 
@@ -65,7 +66,7 @@ def main():
     if response.status_code == 200:
         data = response.json()
     else:
-        message = f'First call to the API returned non-OK status: {response.status_code}.  Exiting.'
+        message = f'First API call to NHL returned non-OK status: {response.status_code}.  Exiting.'
         logging.error(message)
         raise SystemExit(message)
 
@@ -146,8 +147,9 @@ def main():
 
         # Call the NHL API, and log but continue if it failed:
         try:
-            response = requests.get(score_url, timeout=7)
-        except requests.exceptions.RequestException as e:
+            response = requests.get(score_url, timeout=5)
+        # except requests.exceptions.RequestException as e:
+        except requests.Timeout as e:
             message = f'API call to NHL threw an exception: {e}.  Ignoring.'
             logging.warning(message)
 
