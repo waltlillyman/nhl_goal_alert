@@ -5,8 +5,8 @@ Python 3.10 script that polls the unofficial NHL API for changes in the score of
 When [my team](https://www.nhl.com/blues/) scores a goal, invoke a webhook trigger in my [Home Assistant](https://www.home-assistant.io/) (HA) instance to do something, (like, announce the goal on a voice assistant, flash a light, and/or notify my phone.)
 
 ## Requirements
-- An interest in one or more NHL teams.
-- A working Home Assistant instance.
+- An interest in one or more [NHL](https://www.nhl.com/) teams.
+- A working [Home Assistant](https://www.home-assistant.io/) (HA) instance.
 - A real or virtual Linux machine with python 3.10 and optionally Docker. (This will probably run on Windows, but I haven't tried that, myself.)
 
 I run this python script inside a docker container. The Dockerfile, build and run scripts are included here. You could skip docker and just invoke the python script, `nhl_goal_alert.py`, by itself.  
@@ -14,7 +14,7 @@ I run this python script inside a docker container. The Dockerfile, build and ru
 ## Usage
 1. Edit `app/config.py`:  
     1. Set the [team ID](https://github.com/JayBlackedOut/hass-nhlapi/blob/master/teams.md) of the team for which you care to monitor goals scored.  
-    1. Set the name or IP address of your [Home Assistant](https://www.home-assistant.io/) (HA) instance.  
+    1. Set the name or IP address of your HA instance.  
     1. Set the port of your HA instance.  
     1. Set the ID of the HA [webhook trigger](https://www.home-assistant.io/docs/automation/trigger/#webhook-trigger) that the script will invoke when your team scores a goal.  
     1. Set the [log level](https://docs.python.org/3/library/logging.html#logging-levels) of messages to be written to the script's log file.  
@@ -35,7 +35,7 @@ I run this python script inside a docker container. The Dockerfile, build and ru
 ## Why
 I wrote this to help me troubleshoot a problem with the excellent [NHL API integration for HACS on Home Assistant](https://github.com/JayBlackedOut/hass-nhlapi), by [@JayBlackedOut](https://github.com/JayBlackedOut).
 The symptom I'm troubleshooting is that the HA sensor stops updating during a game, sometimes for 20 minutes or longer.
-If I restart HA, the sensor resumes updating, until it stops, again. My Home Assistant instance has no other connectivity or performance symptoms.
+If I restart HA, the sensor resumes updating, until it stops, again. My HA instance has no other connectivity or performance symptoms.
 
 Possible culprits include:
 1. slow DNS server response
@@ -50,8 +50,8 @@ Trying to eliminate one or more of these, I wrote this script that runs in a doc
 I've added a timeout to `requests.get()`, and rudimentary exception handling, to log and continue if an exception is thrown.
 
 ## Observations
-In the first few runs of this script in a VM guest on the same host as my Home Assistant VM, it never exhibits behavior like the HA integration, which frequently just stops updating (for me).
-This script is, so far, about as timely as my third, independent "observer", [theScore](https://get.thescore.com/) app, on my iPhone.
+In the first few runs of this script in a VM guest on the same host as my HA VM guest, it never exhibits behavior like the HA integration, which frequently just stops updating (for me).
+This script is, so far, about as timely as my third, "independent observer", [theScore](https://get.thescore.com/) app, on my iPhone.
 
 Subsequent observations indicate the NHL API request occasionally times out, for me, after the value I specified, 7 seconds. This script catches that exception, (any any others thrown by the `requests()` call to the NHL API), logs the exception message, and carries on. An occasional failed API call is acceptable, as is a relatively short timeout, in my opinion.  
 
