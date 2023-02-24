@@ -24,7 +24,7 @@ def main():
         case _:
             config.log_level = 10
 
-    # Log to this_script.log, appending log messages. DEBUG level will also reveal statements from the requests library:
+    # Log to file, appending log messages. DEBUG level will also reveal statements from the requests library:
     logging.basicConfig(filename=Path(__file__).stem+'.log', filemode='a', format='%(asctime)s %(module)s %(levelname)s: %(message)s', datefmt='%m/%d/%Y %I:%M:%S %p', level=config.log_level)
 
     logging.info(f"STARTING with team ID={config.team_id}, HA host:port={config.ha_host}:{config.ha_port}, webhook ID={config.webhook_id}")
