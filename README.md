@@ -37,7 +37,7 @@ I wrote this to help me troubleshoot a problem with the excellent [NHL API integ
 The symptom I'm troubleshooting is that the HA sensor stops updating during a game, sometimes for 20 minutes or longer.
 If I restart HA, the sensor resumes updating, until it stops, again. My Home Assistant instance has no other connectivity or performance symptoms.
 
-Possible culprits are many, including:
+Possible culprits include:
 1. slow DNS server response
 1. congested home network or ISP
 1. misconfigured home network, VM host, VM guest and/or HA
